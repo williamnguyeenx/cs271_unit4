@@ -14,6 +14,7 @@
 using namespace std;
 
 void test_empty() {
+    //string
     try
     {
         BST<string, int> bst;
@@ -21,6 +22,58 @@ void test_empty() {
             cout << "Incorrect empty result." << endl;
         }
         bst.insert("one",1);
+        if(bst.empty()) {
+            cout << "Incorrect empty result." << endl;
+        }
+    }
+    catch(exception& e)
+    {
+        cerr << "Error in determining if BST is empty : " << e.what() << endl;
+    }
+
+    //int
+    try
+    {
+        BST<int, int> bst;
+        if(!bst.empty()) {
+            cout << "Incorrect empty result." << endl;
+        }
+        bst.insert(5,1);
+        if(bst.empty()) {
+            cout << "Incorrect empty result." << endl;
+        }
+    }
+    catch(exception& e)
+    {
+        cerr << "Error in determining if BST is empty : " << e.what() << endl;
+    }
+
+    //float
+    try
+    {
+        BST<float, int> bst;
+        if(!bst.empty()) {
+            cout << "Incorrect empty result." << endl;
+        }
+        bst.insert(5.5,1);
+        if(bst.empty()) {
+            cout << "Incorrect empty result." << endl;
+        }
+    }
+    catch(exception& e)
+    {
+        cerr << "Error in determining if BST is empty : " << e.what() << endl;
+    }
+
+    //bool
+
+    try
+    {
+        BST<bool, int> bst;
+        if(!bst.empty()) {
+            cout << "Incorrect empty result." << endl;
+        }
+        bst.insert(true,1);
         if(bst.empty()) {
             cout << "Incorrect empty result." << endl;
         }
