@@ -18,7 +18,7 @@ class BST
             U key;
             Node *p;
             Node *left;
-            Node *right
+            Node *right;
         };
 
         Node* root; // pointer to root of BST
@@ -29,7 +29,7 @@ class BST
         bool    empty( void );
         void    insert( const T d, const U k );
         T       get( const U k );
-        void    remove ( const U k );
+        void    remove( const U k );
 
         T       max_data( void );
         T       min_data( void );
