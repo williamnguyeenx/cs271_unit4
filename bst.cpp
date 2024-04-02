@@ -41,7 +41,7 @@ BST<T,U>::~BST( void )
 // the tree in post-order to ensure that child nodes are deleted before their parent.
 //=========================================================================
 template <class T, class U>
-BST<T,U>::deleteTree( Node* x)
+void BST<T,U>::deleteTree( Node* x)
 {
     if (x != nullptr)
     {
@@ -99,28 +99,26 @@ void BST<T,U>::insert( const T& d, const U& k )
     {
         root = z; // the nodeNode become the root if tree is empty
     }
-    else
+
+    // create pointers x and y
+    Node* y = nullptr;
+    Node* x = root;
+
+    // go down tree to location to insert
+    while ( x != nullptr )
     {
-        // create pointers x and y
-        Node* y = nullptr;
-        Node* x = root;
-
-        // go down tree to location to insert
-        while ( x != nullptr )
+        y = x;
+        if ( z->key < x->key )
         {
-            y = x;
-            if ( z->key < x->key )
-            {
-                x = x->left;
-            }
-            else
-            {
-                x = x->right;
-            }
+            x = x->left;
         }
-
-        z->p = y; // set z's parent
+        else
+        {
+            x = x->right;
+        }
     }
+
+    z->p = y; // set z's parent
 
     // insert z
     if ( y == NULL )
@@ -191,7 +189,7 @@ void BST<T,U>::transplant(Node* u, Node* v)
 // 
 //=========================================================================
 template <class T, class U>
-void BST<T,U>::remove( const U& k ) const
+void BST<T,U>::remove( const U& k )
 // Pre condition: 
 // Post condition: 
 {
@@ -368,11 +366,25 @@ U BST<T,U>::successor( const U& k ) const
 // 
 //=========================================================================
 template <class T, class U>
-string BST<T,U>::in_order( void )
+string BST<T,U>::in_order( void ) const
 // Pre condition: 
 // Post condition: 
 {
-    
+    string order;
+    T x = min_key();
+
+    while (successor(x) != NULL)
+    {
+        if (successor(x) == NULL)
+        {
+            order = order + x;
+        }
+        order = order + x + " ";
+        x = successor(x);
+    }
+
+    return order;
+        
 }
 
 
@@ -383,10 +395,25 @@ string BST<T,U>::in_order( void )
 // 
 //=========================================================================
 template <class T, class U>
-void BST<T,U>::trim( const U low, const U high )
+void BST<T,U>::trim( const U low, const U high ) const
 // Pre condition: 
 // Post condition: 
 {
+
+    BST<T,U>* trimmed; 
+
+    T x = min_key();
+
+    while (x < low)
+    {
+        x = successor(x);
+    }
+
+    while (successor(x) != NULL && x >= low && x <= high)
+    {
+        trimmed.insert(x);
+        x = successor(x);
+    }
 
 }
 
