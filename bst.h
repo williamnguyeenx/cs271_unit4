@@ -19,28 +19,37 @@ class BST
             Node *p;
             Node *left;
             Node *right;
+
+            Node(T d, U k, Node *parent = nullptr, Node *l = nullptr, Node *r = nullptr) : data(d), key(k), p(parent), left(l), right(r) {}
         };
 
         Node* root; // pointer to root of BST
 
     public:
-        BST( void ); // constructor
+        BST     ( void ); // constructor
+        ~BST    ( void );
 
         bool    empty( void );
-        void    insert( const T d, const U k );
-        T       get( const U k );
-        void    remove( const U k );
+        void    insert( const T& d, const U& k );
+        T       get( const U& k ) const;
+        void    remove( const U& k );
 
-        T       max_data( void );
-        T       min_data( void );
-        U       max_key( void );
-        U       min_key( void );
+        T       max_data( void ) const;
+        T       min_data( void ) const;
+        U       max_key( void ) const;
+        U       min_key( void ) const;
 
-        U       successor( const U k );
-        string  in_order( void );
-        void    trim( const U low, const U high );
+        U       successor( const U& k ) const;
+        string  in_order( void ) const;
+        void    trim( const U& low, const U& high ) const;
 
         string  to_string( void ) const;
+        void    deleteTree( Node* x);
+
+        T BST<T,U>::getHelper(Node* x, const U& k) const;
+        void BST<T,U>::transplant(Node* u, Node* v);
+        
+
 };
 
 #endif
