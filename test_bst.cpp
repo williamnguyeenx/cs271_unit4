@@ -326,7 +326,7 @@ void test_get() {
 }
 
 void test_remove() {
-    //string
+    //int
     try {
         int vals[10] = {5, 2, 7, 1, 3, 4, 6, 9, 8, 10};
         BST<string, int> balanced_bst;
@@ -342,33 +342,33 @@ void test_remove() {
         cerr << "Error in removing node from bst : " << e.what() << endl;
     }
 
-    //int
+    //float
     try {
-        int vals[10] = {5, 2, 7, 1, 3, 4, 6, 9, 8, 10};
-        BST<int, int> balanced_bst;
+        float vals[10] = {5.5, 2.5, 7.5, 1.5, 3.5, 4.5, 6.5, 9.5, 8.5, 10.5};
+        BST<string, float> balanced_bst;
         for(int i = 0; i < 10; i++) {
-            balanced_bst.insert(5, vals[i]);
+            balanced_bst.insert("some data", vals[i]);
         }
-        balanced_bst.remove(7);
+        balanced_bst.remove(7.5);
         string bst_str = balanced_bst.to_string();
-        if(bst_str != "5 2 8 1 3 6 9 4 10") {
-            cout << "Incorrect result of removing 7. Expected 5 2 8 1 3 6 9 4 10 but got : " << bst_str << endl;
+        if(bst_str != "5.5 2.5 8.5 1.5 3.5 6.5 9.5 4.5 10.5") {
+            cout << "Incorrect result of removing 7.5. Expected 5.5 2.5 8.5 1.5 3.5 6.5 9.5 4.5 10.5 but got : " << bst_str << endl;
         }
     } catch(exception& e) {
         cerr << "Error in removing node from bst : " << e.what() << endl;
     }
 
-    //float
+    //string
     try {
-        int vals[10] = {5, 2, 7, 1, 3, 4, 6, 9, 8, 10};
-        BST<float, int> balanced_bst;
-        for(int i = 0; i < 10; i++) {
-            balanced_bst.insert(5.5, vals[i]);
+        string vals[6] = {"f", "b", "h", "a", "c", "p"};
+        BST<string, string> balanced_bst;
+        for(int i = 0; i < 6; i++) {
+            balanced_bst.insert("some data", vals[i]);
         }
-        balanced_bst.remove(7);
+        balanced_bst.remove("a");
         string bst_str = balanced_bst.to_string();
-        if(bst_str != "5 2 8 1 3 6 9 4 10") {
-            cout << "Incorrect result of removing 7. Expected 5 2 8 1 3 6 9 4 10 but got : " << bst_str << endl;
+        if(bst_str != "f b h c p") {
+            cout << "Incorrect result of removing a. Expected f b h c p but got : " << bst_str << endl;
         }
     } catch(exception& e) {
         cerr << "Error in removing node from bst : " << e.what() << endl;
@@ -376,17 +376,22 @@ void test_remove() {
 
     //bool
     try {
-        int vals[10] = {5, 2, 7, 1, 3, 4, 6, 9, 8, 10};
-        BST<bool, int> balanced_bst;
-        for(int i = 0; i < 10; i++) {
-            balanced_bst.insert(true, vals[i]);
+        bool vals[2] = {true, false};
+        BST<string, bool> balanced_bst;
+        for(int i = 0; i < 2; i++) {
+            balanced_bst.insert("some data", vals[i]);
         }
-        balanced_bst.remove(7);
+        balanced_bst.remove(true);
         string bst_str = balanced_bst.to_string();
-        if(bst_str != "5 2 8 1 3 6 9 4 10") {
-            cout << "Incorrect result of removing 7. Expected 5 2 8 1 3 6 9 4 10 but got : " << bst_str << endl;
+        if(bst_str != "0") {
+            cout << "Incorrect result of removing true. Expected 0 but got : " << bst_str << endl;
         }
-    } catch(exception& e) {
+        balanced_bst.remove(false);
+        bst_str = balanced_bst.to_string();
+        if(bst_str != "") {
+            cout << "Incorrect result of removing true. Expected empty but got : " << bst_str << endl;
+        }
+     } catch(exception& e) {
         cerr << "Error in removing node from bst : " << e.what() << endl;
     }
 }
@@ -410,14 +415,14 @@ void test_max_data() {
 
     // float
     try {
-        float vals[10] = {5.0, 2.1, 7.2, 1.1, 3.9, 4.5, 6.7, 9.3, 8.5, 10.1};
-        BST<string, float> balanced_bst;
+        float vals[10] = {5.0, 2.1, 7.2, 1.5, 3.9, 4.5, 6.7, 9.3, 8.5, 10.5};
+        BST<float, int> balanced_bst;
         for(int i = 0; i < 10; i++) {
-            balanced_bst.insert(to_string(vals[i]) + " data", vals[i]);
+            balanced_bst.insert(vals[i], vals[i]);
         }
-        string max_str = balanced_bst.max_data();
-        if(max_str != "10.100000 data") {
-            cout << "Incorrect result of max_data. Expected \"10.100000 data\" but got : " << max_str << endl;
+        float max_str = balanced_bst.max_data();
+        if(max_str != 10.5) {
+            cout << "Incorrect result of max_data. Expected 10.5 but got : " << max_str << endl;
         }
     } catch(exception& e) {
         cerr << "Error in determining data of max node in bst : " << e.what() << endl;
@@ -426,9 +431,10 @@ void test_max_data() {
     // string
     try {
         string vals[10] = {"f", "b", "h", "a", "c", "p", "g", "q", "l", "z"};
-        BST<string, string> balanced_bst;
+        int vals2[10] = {5, 2, 7, 1, 3, 4, 6, 9, 8, 10};
+        BST<string, int> balanced_bst;
         for(int i = 0; i < 10; i++) {
-            balanced_bst.insert(vals[i] + " data", vals[i]);
+            balanced_bst.insert(vals[i] + " data", vals2[i]);
         }
         string max_str = balanced_bst.max_data();
         if(max_str != "z data") {
@@ -441,13 +447,13 @@ void test_max_data() {
     // char
     try {
         char vals[10] = {'f', 'b', 'h', 'a', 'c', 'p', 'q', 'l', 'z'};
-        BST<string, char> balanced_bst;
+        BST<char, char> balanced_bst;
         for(int i = 0; i < 10; i++) {
-            balanced_bst.insert(to_string(vals[i]) + " data", vals[i]);
+            balanced_bst.insert(vals[i], vals[i]);
         }
-        string max_str = balanced_bst.max_data();
-        if(max_str != "z data") {
-            cout << "Incorrect result of max_data. Expected \"z data\" but got : " << max_str << endl;
+        char max_str = balanced_bst.max_data();
+        if(max_str != 'z') {
+            cout << "Incorrect result of max_data. Expected z but got : " << max_str << endl;
         }
     } catch(exception& e) {
         cerr << "Error in determining data of max node in bst : " << e.what() << endl;
@@ -456,12 +462,12 @@ void test_max_data() {
     // bool  
     try {
         bool vals[10] = {true, false, false, false, false, true, false, true, true, false};
-        BST<string, bool> balanced_bst;
+        BST<bool, bool> balanced_bst;
         for(int i = 0; i < 10; i++) {
-            balanced_bst.insert(to_string(vals[i]) + " data", vals[i]);
+            balanced_bst.insert(vals[i], vals[i]);
         }
-        string max_str = balanced_bst.max_data();
-        if(max_str != "1 data") {
+        bool max_str = balanced_bst.max_data();
+        if(max_str != 1) {
             cout << "Incorrect result of max_data. Expected \"1 data\" but got : " << max_str << endl;
         }
     } catch(exception& e) {
@@ -517,7 +523,7 @@ void test_max_key() {
 
     // char
     try {
-        char vals[10] = {'f', 'b', 'h', 'a', 'c', 'p', 'q', 'l', 'z'};
+        char vals[10] = {'f', 'b', 'h', 'a', 'c', 'p', 'q', 'l', 'z', 'a'};
         BST<string, char> balanced_bst;
         for(int i = 0; i < 10; i++) {
             balanced_bst.insert(to_string(vals[i]) + " data", vals[i]);
@@ -547,6 +553,7 @@ void test_max_key() {
 }
 
 void test_min_data() {
+    //string
     try {
         int vals[10] = {5, 2, 7, 1, 3, 4, 6, 9, 8, 10};
         BST<string, int> balanced_bst;
@@ -563,29 +570,29 @@ void test_min_data() {
 
     // float
     try {
-        float vals[10] = {5.0, 2.1, 7.2, 1.1, 3.9, 4.5, 6.7, 9.3, 8.5, 10.1};
-        BST<string, float> balanced_bst;
+        int vals[10] = {5, 2, 7, 1, 3, 4, 6, 9, 8, 10};
+        BST<float, int> balanced_bst;
         for(int i = 0; i < 10; i++) {
-            balanced_bst.insert(to_string(vals[i]) + " data", vals[i]);
+            balanced_bst.insert(vals[i]+0.5, vals[i]);
         }
-        string max_str = balanced_bst.min_data();
-        if(max_str != "1.100000 data") {
-            cout << "Incorrect result of min_data. Expected \"1.100000 data\" but got : " << max_str << endl;
+        float min_str = balanced_bst.min_data();
+        if(min_str != 1.5) {
+            cout << "Incorrect result of min_data. Expected 1.5 but got : " << min_str << endl;
         }
     } catch(exception& e) {
         cerr << "Error in determining data of min node in bst : " << e.what() << endl;
     }
 
-    // string
+    // int
     try {
-        string vals[10] = {"f", "b", "h", "a", "c", "p", "g", "q", "l", "z"};
-        BST<string, string> balanced_bst;
+        int vals[10] = {5,2,3,4,8,9,2,1,11,15};
+        BST<int, string> balanced_bst;
         for(int i = 0; i < 10; i++) {
-            balanced_bst.insert(vals[i] + " data", vals[i]);
+            balanced_bst.insert(vals[i], to_string(vals[i]));
         }
-        string max_str = balanced_bst.min_data();
-        if(max_str != "a data") {
-            cout << "Incorrect result of max_data. Expected \"a data\" but got : " << max_str << endl;
+        int max_str = balanced_bst.min_data();
+        if(max_str != 1) {
+            cout << "Incorrect result of max_data. Expected 1 but got : " << max_str << endl;
         }
     } catch(exception& e) {
         cerr << "Error in determining data of min node in bst : " << e.what() << endl;
@@ -594,13 +601,14 @@ void test_min_data() {
     // char 
     try {
         char vals[10] = {'f', 'b', 'h', 'a', 'c', 'p', 'q', 'l', 'z'};
-        BST<string, char> balanced_bst;
+        int vals2[10] = {5, 2, 7, 1, 3, 4, 6, 9, 8, 10};
+        BST<char, int> balanced_bst;
         for(int i = 0; i < 10; i++) {
-            balanced_bst.insert(to_string(vals[i]) + " data", vals[i]);
+            balanced_bst.insert(vals[i], vals2[i]);
         }
-        string max_str = balanced_bst.min_data();
-        if(max_str != "a data") {
-            cout << "Incorrect result of min_data. Expected \"a data\" but got : " << max_str << endl;
+        char max_str = balanced_bst.min_data();
+        if(max_str != 'a') {
+            cout << "Incorrect result of min_data. Expected a but got : " << max_str << endl;
         }
     } catch(exception& e) {
         cerr << "Error in determining data of min node in bst : " << e.what() << endl;
@@ -609,13 +617,14 @@ void test_min_data() {
     // bool  
     try {
         bool vals[10] = {true, false, false, false, false, true, false, true, true, false};
-        BST<string, bool> balanced_bst;
+        int vals2[10] = {5, 2, 7, 1, 3, 4, 6, 9, 8, 10};
+        BST<bool, int> balanced_bst;
         for(int i = 0; i < 10; i++) {
-            balanced_bst.insert(to_string(vals[i]) + " data", vals[i]);
+            balanced_bst.insert(vals[i], vals2[i]);
         }
-        string max_str = balanced_bst.min_data();
-        if(max_str != "0 data") {
-            cout << "Incorrect result of min_data. Expected \"0 data\" but got : " << max_str << endl;
+        bool max_str = balanced_bst.min_data();
+        if(max_str != 0) {
+            cout << "Incorrect result of min_data. Expected 0 but got : " << max_str << endl;
         }
     } catch(exception& e) {
         cerr << "Error in determining data of min node in bst : " << e.what() << endl;
@@ -669,7 +678,7 @@ void test_min_key() {
 
     // char
     try {
-        char vals[10] = {'f', 'b', 'h', 'a', 'c', 'p', 'q', 'l', 'z'};
+        char vals[10] = {'f', 'b', 'h', 'a', 'c', 'p', 'q', 'l', 'z', 'x'};
         BST<string, char> balanced_bst;
         for(int i = 0; i < 10; i++) {
             balanced_bst.insert(to_string(vals[i]) + " data", vals[i]);
@@ -883,53 +892,53 @@ void test_in_order() {
         cerr << "Error getting keys in_order from bst : " << e.what() << endl;
     }
 
-    // //char
-    // try {
-    //     BST<string, char> bst;
-    //     char vals[5] = {'a', 'b', 'c', 'd', 'e'};
-    //     for(int i = 0; i < 5; i++) {
-    //         bst.insert("some data", vals[i]);
-    //     }
-    //     string bst_str = bst.in_order();
-    //     if(bst_str != "a b c d e") {
-    //         cout << "Incorrect in_order result after inserting keys a-e in order. Expected a b c d e but got : " << bst_str << endl;
-    //     }
-    //     char vals2[5] = {'d', 'a', 'c', 'e', 'f'};
-    //     BST<string, char> balanced_bst;
-    //     for(int i = 0; i < 5; i++) {
-    //         balanced_bst.insert("some data", vals2[i]);
-    //     }
-    //     bst_str = balanced_bst.in_order();
-    //     if(bst_str != "a c d e f") {
-    //         cout << "Incorrect in_order result after inserting keys {d, a, c, e, f}. Expected a c d e fbut got : " << bst_str << endl;
-    //     }
-    // } catch(exception& e) {
-    //     cerr << "Error getting keys in_order from bst : " << e.what() << endl;
-    // }
+    //char
+    try {
+        BST<string, char> bst;
+        char vals[5] = {'a', 'b', 'c', 'd', 'e'};
+        for(int i = 0; i < 5; i++) {
+            bst.insert("some data", vals[i]);
+        }
+        string bst_str = bst.in_order();
+        if(bst_str != "a b c d e") {
+            cout << "Incorrect in_order result after inserting keys a-e in order. Expected a b c d e but got : " << bst_str << endl;
+        }
+        char vals2[5] = {'d', 'a', 'c', 'e', 'f'};
+        BST<string, char> balanced_bst;
+        for(int i = 0; i < 5; i++) {
+            balanced_bst.insert("some data", vals2[i]);
+        }
+        bst_str = balanced_bst.in_order();
+        if(bst_str != "a c d e f") {
+            cout << "Incorrect in_order result after inserting keys {d, a, c, e, f}. Expected a c d e fbut got : " << bst_str << endl;
+        }
+    } catch(exception& e) {
+        cerr << "Error getting keys in_order from bst : " << e.what() << endl;
+    }
 
-    // //bool
-    // try {
-    //     BST<string, bool> bst;
-    //     bool vals[2] = {true, false};
-    //     for(int i = 0; i < 2; i++) {
-    //         bst.insert("some data", vals[i]);
-    //     }
-    //     string bst_str = bst.in_order();
-    //     if(bst_str != "0 1") {
-    //         cout << "Incorrect in_order result after inserting keys in order. Expected 0 1 but got : " << bst_str << endl;
-    //     }
-    //     bool vals2[3] = {true, true, false};
-    //     BST<string, bool> balanced_bst;
-    //     for(int i = 0; i < 3; i++) {
-    //         balanced_bst.insert("some data", vals2[i]);
-    //     }
-    //     bst_str = balanced_bst.in_order();
-    //     if(bst_str != "0 1 1") {
-    //         cout << "Incorrect in_order result after inserting keys {true, true, false}. Expected 0 1 1 fbut got : " << bst_str << endl;
-    //     }
-    // } catch(exception& e) {
-    //     cerr << "Error getting keys in_order from bst : " << e.what() << endl;
-    // }
+    //bool
+    try {
+        BST<string, bool> bst;
+        bool vals[2] = {true, false};
+        for(int i = 0; i < 2; i++) {
+            bst.insert("some data", vals[i]);
+        }
+        string bst_str = bst.in_order();
+        if(bst_str != "0 1") {
+            cout << "Incorrect in_order result after inserting keys in order. Expected 0 1 but got : " << bst_str << endl;
+        }
+        bool vals2[3] = {true, true, false};
+        BST<string, bool> balanced_bst;
+        for(int i = 0; i < 3; i++) {
+            balanced_bst.insert("some data", vals2[i]);
+        }
+        bst_str = balanced_bst.in_order();
+        if(bst_str != "0 1 1") {
+            cout << "Incorrect in_order result after inserting keys {true, true, false}. Expected 0 1 1 fbut got : " << bst_str << endl;
+        }
+    } catch(exception& e) {
+        cerr << "Error getting keys in_order from bst : " << e.what() << endl;
+    }
 }
 
 void test_trim() {
