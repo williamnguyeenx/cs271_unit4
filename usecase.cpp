@@ -26,7 +26,7 @@ BST<D, K>* create_bst(const string& fname)
         getline(ss, binary, ',');
         getline(ss, hex, ',');
         
-        bst->insert(hex, binary);
+        bst->insert(binary, hex);
     }
     file.close();
     return bst;
