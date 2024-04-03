@@ -148,38 +148,41 @@ T BST<T,U>::getHelper(Node* x, const U& k) const
 
 //=========================================================================
 // transplant
-// Parameters: Node u, Node v
-// Returns: None, but alters tree
-// Helper function to transplant two nodes in a tree
+// Parameters: Node* u - pointer to the node to be replaced, Node* v - pointer
+//             to the node that replaces u
+// Returns: None, but alters tree structure
+// Description: Helper function to transplant two nodes in a binary search tree.
+//              Replaces the subtree rooted at node u with the subtree rooted at node v.
 //=========================================================================
 template <class T, class U>
 void BST<T,U>::transplant(Node* u, Node* v)
-// Pre condition: u and v are valid elements of the BST
-// Post condition: u and v are now transplanted
+// Precondition: u and v are valid nodes in the binary search tree
+// Postcondition: The subtree rooted at node u is replaced by the subtree rooted at node v
 {
-    if (u->p == nullptr) { // if tree is empty
-        root = v;
-    } else if (u == u->p->left) {
-        u->p->left = v;
-    } else {
-        u->p->right = v;
+    if (u->p == nullptr) { // If u is the root of the tree
+        root = v; // Update the root pointer to point to v
+    } else if (u == u->p->left) { // If u is a left child of its parent
+        u->p->left = v; // Update the left child pointer of u's parent to point to v
+    } else { // If u is a right child of its parent
+        u->p->right = v; // Update the right child pointer of u's parent to point to v
     }
-    if (v != nullptr) {
-        v->p = u->p;
+    if (v != nullptr) { // If v is not null
+        v->p = u->p; // Update the parent pointer of v to point to u's parent
     }
 }
 
 
 //=========================================================================
 // remove
-// Parameters: key value of type U
-// Returns: none, but alters tree
-// removes Node with key k from tree, maintaining BST properties
+// Parameters: const U& k - key value of type U to be removed from the tree
+// Returns: None, but alters the tree structure
+// Description: Removes the node with key k from the binary search tree while maintaining
+//              the properties of a binary search tree.
 //=========================================================================
 template <class T, class U>
 void BST<T,U>::remove( const U& k )
-// Pre condition: BST is a valid binary search tree, k is of type U
-// Post condition: the node containing k is no longer in the BST, BST properties are maintained
+// Precondition: BST is a valid binary search tree, k is of type U
+// Postcondition: The node containing key k is removed from the BST, and BST properties are maintained
 {
     Node* z = root;
     Node* parent = nullptr;
@@ -198,38 +201,48 @@ void BST<T,U>::remove( const U& k )
         }
     }
 
-    if (z == nullptr) // if tree is empty
+    if (z == nullptr) // If the node with key k is not found
     {
-        return;
+        return; // No action needed, key not found
     }
+
+    // Case 1: If the node to be removed has no left child
     if (z->left == nullptr) 
     {
-        transplant(z, z->right);
+        transplant(z, z->right); // Replace z with its right child
     } 
+    // Case 2: If the node to be removed has no right child
     else if (z->right == nullptr) 
     {
-        transplant(z, z->left);
+        transplant(z, z->left); // Replace z with its left child
     } 
+    // Case 3: If the node to be removed has both left and right children
     else 
     {
+        // Find the successor of z (smallest node in the right subtree)
         Node* y = z->right;
         while (y->left != nullptr)
         {
             y = y->left;
         }
 
+        // If the successor is not the right child of z
         if (y->p != z) 
         {
+            // Replace y with its right child
             transplant(y, y->right);
+            // Update the right child of y to be the right child of z
             y->right = z->right;
             y->right->p = y;
         }
+        // Replace z with its successor y
         transplant(z, y);
+        // Update the left child of y to be the left child of z
         y->left = z->left;
         y->left->p = y;
     }
 
-    delete z; // Free the memory
+    delete z; // Free the memory occupied by the removed node
 }
 
 
@@ -331,15 +344,17 @@ U BST<T,U>::min_key( void ) const
 
 //=========================================================================
 // successor
-// Parameters: key value of type U
-// Returns: key value of type U
-// returns the key of the successor of the element with key k
+// Parameters: const U& k - key value of type U
+// Returns: U - key value of type U
+// Description: Returns the key value of the successor of the element with 
+//              the key k in the binary search tree.
 //=========================================================================
 template <class T, class U>
 U BST<T,U>::successor( const U& k ) const
 // Pre condition: bst is a valid binary search tree, k is of type U
 // Post condition: no changes to tree, but returns the key of the successor of the element with key k
 {
+    // Initialize pointers for traversal
     Node* x = root;
     Node* parent = nullptr;
 
@@ -359,7 +374,7 @@ U BST<T,U>::successor( const U& k ) const
 
     if (x == nullptr) // if tree is empty
     {
-        return U();
+        return U(); // Return a default value of type U
     }
 
     if (x->right != nullptr) // if right child is null
@@ -367,6 +382,7 @@ U BST<T,U>::successor( const U& k ) const
         return getHelperSpecificNode(x->right);
     }
 
+    // If the right child is null, traverse the tree to find the successor
     Node* y = parent;
     while (y != nullptr && x == y->right) 
     {
@@ -374,6 +390,7 @@ U BST<T,U>::successor( const U& k ) const
         y = y->p;
     }
 
+    // If y is null, indicating x is the largest element in the tree
     if (y == nullptr) 
     {
         return U();
@@ -385,9 +402,11 @@ U BST<T,U>::successor( const U& k ) const
 
 //=========================================================================
 // getHelperSpecificNode
-// Parameters: Node
-// Returns: key value of type U
-// helper function for successor
+// Parameters: Node* node - a pointer to the node
+// Returns: U - key value of type U
+// Description: This is a helper function for the successor method. It traverses
+//              the left subtree of the given node to find the node with the smallest
+//              key value, which represents the successor of the given node.
 //=========================================================================
 template <class T, class U>
 U BST<T,U>::getHelperSpecificNode(Node* node) const {
@@ -397,7 +416,7 @@ U BST<T,U>::getHelperSpecificNode(Node* node) const {
         return U(); // Or throw an exception if that makes more sense for your application
     }
 
-    while (node->left != nullptr) {
+    while (node->left != nullptr) { // Traverse the left subtree to find the node with the smallest key value
         node = node->left;
     }
 
@@ -408,25 +427,26 @@ U BST<T,U>::getHelperSpecificNode(Node* node) const {
 //=========================================================================
 // in_order
 // Parameters: none
-// Returns: string of values of BST in order
-// performs an in order tree walk, and returns a string of the elements of the tree, sorted ascending
+// Returns: string - string of values of BST in order
+// Description: Performs an in-order tree walk and returns a string of the elements
+//              of the tree sorted in ascending order.
 //=========================================================================
 template <class T, class U>
 string BST<T,U>::in_order( void ) const
 // Pre condition: tree is a valid binary search tree
 // Post condition: no changes to tree, but prints the elements of the bst in ascending order
 {
-    stringstream order;
-    U x = getHelperSpecificNode(root);
+    stringstream order; // Initialize a stringstream to store the elements of the tree
+    U x = getHelperSpecificNode(root); // Find the smallest key value in the binary search tree
 
-    while (successor(x) != U())
+    while (successor(x) != U()) // Traverse the binary search tree using successor method
     {
-        order << x << " ";
-        x = successor(x);
+        order << x << " "; // Append the current key value to the stringstream
+        x = successor(x); // Move to the next key value
     }
-    order << x;
+    order << x; // Append the last key value to the stringstream
 
-    return order.str();
+    return order.str(); // Return the stringstream content as a string
         
 }
 
