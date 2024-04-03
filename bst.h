@@ -46,8 +46,8 @@ class BST
         string  to_string( void ) const;
         void    deleteTree( Node* x);
 
-        T BST<T,U>::getHelper(Node* x, const U& k) const;
-        void BST<T,U>::transplant(Node* u, Node* v);
+        T getHelper(Node* x, const U& k) const;
+        void transplant(Node* u, Node* v);
         
 
 };

@@ -3,7 +3,6 @@
 #include <sstream>
 #include <string>
 
-
 //=========================================================================
 // default constructor
 // Parameters: None
@@ -32,68 +31,6 @@ BST<T,U>::~BST( void )
     deleteTree(root);
     root = nullptr;
 }
-
-//=========================================================================
-// deleteTree 
-// Parameters: Node* node - pointer to the current node in the BST
-// Returns: N/A
-// Recursively deletes all nodes in the binary search tree, freeing up memory. It traverses
-// the tree in post-order to ensure that child nodes are deleted before their parent.
-//=========================================================================
-template <class T, class U>
-void BST<T,U>::deleteTree( Node* x)
-{
-    if (x != nullptr)
-    {
-        deleteTree(x->right);
-        deleteTree(x->left);
-        delete x;
-    }
-}
-
-//=========================================================================
-// to_string
-// Parameters:
-// Returns:
-// 
-//=========================================================================
-template <class T, class U>
-string BST<T,U>::to_string( void ) const
-// Pre condition: 
-// Post condition: 
-{
-    stringstream result;
-    queue<Node*> nodeQueue;
-    if (root == nullptr)
-    {
-        return "";
-    }
-    nodeQueue.push(root); // EnQueue the root node
-
-    while (!nodeQueue.empty())
-    {
-        Node* x = nodeQueue.front(); // Get front node, node x is the current node
-        nodeQueue.pop(); // DeQueue the front node
-
-        if (x->left != nullptr) // EnQueue the left child
-        {
-            nodeQueue.push(x->left);
-        }
-        if (x->right != nullptr) // EnQueue the right child
-        {
-            nodeQueue.push(x->right);
-        }
-
-        result << x->key;
-
-        if(!nodeQueue.empty())
-        {
-            result << " ";
-        }       
-    }
-    return result.str();
-}
-
 
 //=========================================================================
 // empty - Check if the BST is empty
@@ -217,12 +154,13 @@ void BST<T,U>::transplant(Node* u, Node* v)
 // Returns:
 // 
 //=========================================================================
+
 template <class T, class U>
 void BST<T,U>::remove( const U& k )
 // Pre condition: 
 // Post condition: 
 {
-    Node* z = getHelper(root, k);
+    Node z = getHelper(root, k);
 
     if (z == nullptr) return;
     if (z->left == nullptr) 
@@ -235,7 +173,7 @@ void BST<T,U>::remove( const U& k )
     } 
     else 
     {
-        Node* y = getHelper(z->right, min_key(z->right));
+        Node y = getHelper(z->right, min_key());
         if (y->p != z) 
         {
             transplant(y, y->right);
@@ -360,7 +298,7 @@ U BST<T,U>::successor( const U& k ) const
 // Pre condition: 
 // Post condition: 
 {
-    Node* x = getHelper(root, k);
+    Node x = getHelper(root, k);
 
     if (x == nullptr) 
     {
@@ -429,7 +367,7 @@ void BST<T,U>::trim( const U low, const U high ) const
 // Post condition: 
 {
 
-    BST<T,U>* trimmed; 
+    BST<T,U> trimmed; 
 
     T x = min_key();
 
@@ -446,20 +384,79 @@ void BST<T,U>::trim( const U low, const U high ) const
 
 }
 
-
-/*
 //=========================================================================
-// 
-// Parameters:
-// Returns:
-// 
+// deleteTree 
+// Parameters: Node* node - pointer to the current node in the BST
+// Returns: N/A
+// Recursively deletes all nodes in the binary search tree, freeing up memory. It traverses
+// the tree in post-order to ensure that child nodes are deleted before their parent.
 //=========================================================================
 template <class T, class U>
+void BST<T,U>::deleteTree( Node* x)
+{
+    if (x != nullptr)
+    {
+        deleteTree(x->right);
+        deleteTree(x->left);
+        delete x;
+    }
+}
 
+// =========================================================================
+// to_string
+// Parameters:
+// Returns:
+
+// =========================================================================
+
+template <class T, class U>
+string BST<T,U>::to_string( void ) const
 // Pre condition: 
 // Post condition: 
 {
+    stringstream result;
+    BST<T,U> str1;
+    if (root == nullptr)
+    {
+        return "";
 
+    }
+
+    Node* x = root;
+    Node* y = nullptr;
+
+    if (x != nullptr)
+    {
+        result << x->key;
+        y = x->left;
+        while (y != nullptr)
+        {
+            result << y->key << " ";
+        }
+    }
+//     // str1.push(root); // EnQueue the root node
+
+//     // while (!str1.empty())
+//     // {
+//     //     Node* x = str1.front(); // Get front node, node x is the current node
+//     //     str1.pop(); // DeQueue the front node
+
+//     //     if (x->left != nullptr) // EnQueue the left child
+//     //     {
+//     //         str1.push(x->left);
+//     //     }
+//     //     if (x->right != nullptr) // EnQueue the right child
+//     //     {
+//     //         str1.push(x->right);
+//     //     }
+
+//     //     result << x->key;
+
+//     //     if(!str1.empty())
+//     //     {
+//     //         result << " ";
+//     //     }       
+//     // }
+
+    return result.str();
 }
-*/
-
