@@ -328,7 +328,22 @@ U BST<T,U>::successor( const U& k ) const
 // Pre condition: 
 // Post condition: 
 {
-    Node x = getHelper(root, k);
+    Node* x = root;
+    Node* parent = nullptr;
+
+    // Search for the node with key k
+    while (x != nullptr && x->key != k)
+    {
+        parent = x;
+        if (k < x->key)
+        {
+            x = x->left;
+        }
+        else
+        {
+            x = x->right;
+        }
+    }
 
     if (x == nullptr) 
     {
@@ -340,7 +355,7 @@ U BST<T,U>::successor( const U& k ) const
         return min_key(x->right);
     }
 
-    Node* y = x->p;
+    Node* y = parent;
     while (y != nullptr && x == y->right) 
     {
         x = y;
