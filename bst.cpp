@@ -120,7 +120,11 @@ T BST<T,U>::get( const U& k ) const
 template <class T, class U>
 T BST<T,U>::getHelper(Node* x, const U& k) const 
 {
-    if (x == nullptr || x->key == k) 
+    if (x == nullptr)
+    {
+        return T();
+    }
+    if (x->key == k) 
     {
         return x->data;
     }
@@ -161,9 +165,27 @@ void BST<T,U>::remove( const U& k )
 // Pre condition: 
 // Post condition: 
 {
-    Node z = getHelper(root, k);
+    Node* z = root;
+    Node* parent = nullptr;
 
-    if (z == nullptr) return;
+    // Search for the node with key k
+    while (z != nullptr && z->key != k)
+    {
+        parent = z;
+        if (k < z->key)
+        {
+            z = z->left;
+        }
+        else
+        {
+            z = z->right;
+        }
+    }
+
+    if (z == nullptr)
+    {
+        return;
+    }
     if (z->left == nullptr) 
     {
         transplant(z, z->right);
@@ -174,7 +196,12 @@ void BST<T,U>::remove( const U& k )
     } 
     else 
     {
-        Node y = getHelper(z->right, min_key());
+        Node* y = z->right;
+        while (y->left != nullptr)
+        {
+            y = y->left;
+        }
+
         if (y->p != z) 
         {
             transplant(y, y->right);
