@@ -98,6 +98,57 @@ void test_empty() {
     {
         cerr << "Error in determining if BST is empty : " << e.what() << endl;
     }
+
+    // data string 
+    try
+    {
+        BST<int, string> bst;
+        if(!bst.empty()) {
+            cout << "Incorrect empty result." << endl;
+        }
+        bst.insert(1,"one");
+        if(bst.empty()) {
+            cout << "Incorrect empty result." << endl;
+        }
+    }
+    catch(exception& e)
+    {
+        cerr << "Error in determining if BST is empty : " << e.what() << endl;
+    }
+
+    // data float 
+    try
+    {
+        BST<int, float> bst;
+        if(!bst.empty()) {
+            cout << "Incorrect empty result." << endl;
+        }
+        bst.insert(1,5.5);
+        if(bst.empty()) {
+            cout << "Incorrect empty result." << endl;
+        }
+    }
+    catch(exception& e)
+    {
+        cerr << "Error in determining if BST is empty : " << e.what() << endl;
+    }
+
+    // data bool 
+    try
+    {
+        BST<int, bool> bst;
+        if(!bst.empty()) {
+            cout << "Incorrect empty result." << endl;
+        }
+        bst.insert(1,true);
+        if(bst.empty()) {
+            cout << "Incorrect empty result." << endl;
+        }
+    }
+    catch(exception& e)
+    {
+        cerr << "Error in determining if BST is empty : " << e.what() << endl;
+    }
 }
 
 void test_insert() {
@@ -226,10 +277,52 @@ void test_get() {
     }
 
     //int
+    try {
+        BST<int, int> bst;
+        int val = bst.get(0);
+        if(val!=0) {
+            cout << "Incorrect get result from empty bst. Expected 0 but got " << val << endl;
+        }
+        bst.insert(1,1);
+        val = bst.get(1);
+        if(val != 1) {
+            cout << "Incorrect get result. Expected \"1\" but got : " << val << endl;
+        }
+    } catch(exception& e) {
+        cerr << "Error in getting data from bst : " << e.what() << endl;
+    }
 
     //float
+    try {
+        BST<float, int> bst;
+        float val = bst.get(0);
+        if(val!=0) {
+            cout << "Incorrect get result from empty bst. Expected 0 but got " << val << endl;
+        }
+        bst.insert(5.5,1);
+        val = bst.get(1);
+        if(val != 5.5) {
+            cout << "Incorrect get result. Expected \"5.5\" but got : " << val << endl;
+        }
+    } catch(exception& e) {
+        cerr << "Error in getting data from bst : " << e.what() << endl;
+    }
 
     //bool
+    try {
+        BST<bool, int> bst;
+        bool val = bst.get(0);
+        if(val!=0) {
+            cout << "Incorrect get result from empty bst. Expected 0 but got " << val << endl;
+        }
+        bst.insert(true,1);
+        val = bst.get(1);
+        if(val != true) {
+            cout << "Incorrect get result. Expected \"true\" but got : " << val << endl;
+        }
+    } catch(exception& e) {
+        cerr << "Error in getting data from bst : " << e.what() << endl;
+    }
 }
 
 void test_remove() {
@@ -300,7 +393,7 @@ void test_remove() {
 
 
 void test_max_data() {
-    //string
+    // int
     try {
         int vals[10] = {5, 2, 7, 1, 3, 4, 6, 9, 8, 10};
         BST<string, int> balanced_bst;
@@ -314,9 +407,70 @@ void test_max_data() {
     } catch(exception& e) {
         cerr << "Error in determining data of max node in bst : " << e.what() << endl;
     }
+
+    // float
+    try {
+        float vals[10] = {5.0, 2.1, 7.2, 1.1, 3.9, 4.5, 6.7, 9.3, 8.5, 10.1};
+        BST<string, float> balanced_bst;
+        for(int i = 0; i < 10; i++) {
+            balanced_bst.insert(to_string(vals[i]) + " data", vals[i]);
+        }
+        string max_str = balanced_bst.max_data();
+        if(max_str != "10.100000 data") {
+            cout << "Incorrect result of max_data. Expected \"10.100000 data\" but got : " << max_str << endl;
+        }
+    } catch(exception& e) {
+        cerr << "Error in determining data of max node in bst : " << e.what() << endl;
+    }
+
+    // string
+    try {
+        string vals[10] = {"f", "b", "h", "a", "c", "p", "g", "q", "l", "z"};
+        BST<string, string> balanced_bst;
+        for(int i = 0; i < 10; i++) {
+            balanced_bst.insert(vals[i] + " data", vals[i]);
+        }
+        string max_str = balanced_bst.max_data();
+        if(max_str != "z data") {
+            cout << "Incorrect result of max_data. Expected \"z data\" but got : " << max_str << endl;
+        }
+    } catch(exception& e) {
+        cerr << "Error in determining data of max node in bst : " << e.what() << endl;
+    }
+
+    // char
+    try {
+        char vals[10] = {'f', 'b', 'h', 'a', 'c', 'p', 'q', 'l', 'z'};
+        BST<string, char> balanced_bst;
+        for(int i = 0; i < 10; i++) {
+            balanced_bst.insert(to_string(vals[i]) + " data", vals[i]);
+        }
+        string max_str = balanced_bst.max_data();
+        if(max_str != "z data") {
+            cout << "Incorrect result of max_data. Expected \"z data\" but got : " << max_str << endl;
+        }
+    } catch(exception& e) {
+        cerr << "Error in determining data of max node in bst : " << e.what() << endl;
+    }
+
+    // bool  
+    try {
+        bool vals[10] = {true, false, false, false, false, true, false, true, true, false};
+        BST<string, bool> balanced_bst;
+        for(int i = 0; i < 10; i++) {
+            balanced_bst.insert(to_string(vals[i]) + " data", vals[i]);
+        }
+        string max_str = balanced_bst.max_data();
+        if(max_str != "1 data") {
+            cout << "Incorrect result of max_data. Expected \"1 data\" but got : " << max_str << endl;
+        }
+    } catch(exception& e) {
+        cerr << "Error in determining data of max node in bst : " << e.what() << endl;
+    }
 }
 
 void test_max_key() {
+    // int
     try {
         int vals[10] = {5, 2, 7, 1, 3, 4, 6, 9, 8, 10};
         BST<string, int> balanced_bst;
@@ -330,6 +484,66 @@ void test_max_key() {
     } catch(exception& e) {
         cerr << "Error in determining key of max node in bst : " << e.what() << endl;
     }
+
+    // float
+    try {
+        float vals[10] = {5.0, 2.1, 7.2, 1.1, 3.9, 4.5, 6.7, 9.3, 8.5, 10.1};
+        BST<string, float> balanced_bst;
+        for(int i = 0; i < 10; i++) {
+            balanced_bst.insert(to_string(vals[i]) + " data", vals[i]);
+        }
+        float max_float = balanced_bst.max_key();
+        if(max_float != 10.1) {
+            cout << "Incorrect result of max_key. Expected 10.1 but got : " << max_float << endl;
+        }
+    } catch(exception& e) {
+        cerr << "Error in determining data of max node in bst : " << e.what() << endl;
+    }
+
+    // string
+    try {
+        string vals[10] = {"f", "b", "h", "a", "c", "p", "g", "q", "l", "z"};
+        BST<string, string> balanced_bst;
+        for(int i = 0; i < 10; i++) {
+            balanced_bst.insert(vals[i] + " data", vals[i]);
+        }
+        string max_str = balanced_bst.max_key();
+        if(max_str != "z") {
+            cout << "Incorrect result of max_key. Expected z but got : " << max_str << endl;
+        }
+    } catch(exception& e) {
+        cerr << "Error in determining data of max node in bst : " << e.what() << endl;
+    }
+
+    // char
+    try {
+        char vals[10] = {'f', 'b', 'h', 'a', 'c', 'p', 'q', 'l', 'z'};
+        BST<string, char> balanced_bst;
+        for(int i = 0; i < 10; i++) {
+            balanced_bst.insert(to_string(vals[i]) + " data", vals[i]);
+        }
+        char max_str = balanced_bst.max_key();
+        if(max_str != 'z') {
+            cout << "Incorrect result of max_key. Expected \"z\" but got : " << max_str << endl;
+        }
+    } catch(exception& e) {
+        cerr << "Error in determining data of max node in bst : " << e.what() << endl;
+    }
+
+    // bool  
+    try {
+        bool vals[10] = {true, false, false, false, false, true, false, true, true, false};
+        BST<string, bool> balanced_bst;
+        for(int i = 0; i < 10; i++) {
+            balanced_bst.insert(to_string(vals[i]) + " data", vals[i]);
+        }
+        bool max_str = balanced_bst.max_key();
+        if(max_str != 1) {
+            cout << "Incorrect result of max_key. Expected \"1\" but got : " << max_str << endl;
+        }
+    } catch(exception& e) {
+        cerr << "Error in determining data of max node in bst : " << e.what() << endl;
+    }
 }
 
 void test_min_data() {
@@ -342,6 +556,66 @@ void test_min_data() {
         string min_str = balanced_bst.min_data();
         if(min_str != "1 data") {
             cout << "Incorrect result of min_data. Expected \"1 data\" but got : " << min_str << endl;
+        }
+    } catch(exception& e) {
+        cerr << "Error in determining data of min node in bst : " << e.what() << endl;
+    }
+
+    // float
+    try {
+        float vals[10] = {5.0, 2.1, 7.2, 1.1, 3.9, 4.5, 6.7, 9.3, 8.5, 10.1};
+        BST<string, float> balanced_bst;
+        for(int i = 0; i < 10; i++) {
+            balanced_bst.insert(to_string(vals[i]) + " data", vals[i]);
+        }
+        string max_str = balanced_bst.min_data();
+        if(max_str != "1.100000 data") {
+            cout << "Incorrect result of min_data. Expected \"1.100000 data\" but got : " << max_str << endl;
+        }
+    } catch(exception& e) {
+        cerr << "Error in determining data of min node in bst : " << e.what() << endl;
+    }
+
+    // string
+    try {
+        string vals[10] = {"f", "b", "h", "a", "c", "p", "g", "q", "l", "z"};
+        BST<string, string> balanced_bst;
+        for(int i = 0; i < 10; i++) {
+            balanced_bst.insert(vals[i] + " data", vals[i]);
+        }
+        string max_str = balanced_bst.min_data();
+        if(max_str != "a data") {
+            cout << "Incorrect result of max_data. Expected \"a data\" but got : " << max_str << endl;
+        }
+    } catch(exception& e) {
+        cerr << "Error in determining data of min node in bst : " << e.what() << endl;
+    }
+
+    // char
+    try {
+        char vals[10] = {'f', 'b', 'h', 'a', 'c', 'p', 'q', 'l', 'z'};
+        BST<string, char> balanced_bst;
+        for(int i = 0; i < 10; i++) {
+            balanced_bst.insert(to_string(vals[i]) + " data", vals[i]);
+        }
+        string max_str = balanced_bst.min_data();
+        if(max_str != "a data") {
+            cout << "Incorrect result of min_data. Expected \"a data\" but got : " << max_str << endl;
+        }
+    } catch(exception& e) {
+        cerr << "Error in determining data of min node in bst : " << e.what() << endl;
+    }
+
+    // bool  
+    try {
+        bool vals[10] = {true, false, false, false, false, true, false, true, true, false};
+        BST<string, bool> balanced_bst;
+        for(int i = 0; i < 10; i++) {
+            balanced_bst.insert(to_string(vals[i]) + " data", vals[i]);
+        }
+        string max_str = balanced_bst.min_data();
+        if(max_str != "0 data") {
+            cout << "Incorrect result of min_data. Expected \"0 data\" but got : " << max_str << endl;
         }
     } catch(exception& e) {
         cerr << "Error in determining data of min node in bst : " << e.what() << endl;
@@ -361,6 +635,66 @@ void test_min_key() {
         }
     } catch(exception& e) {
         cerr << "Error in determining key of min node in bst : " << e.what() << endl;
+    }
+
+    // float
+    try {
+        float vals[10] = {5.0, 2.1, 7.2, 1.1, 3.9, 4.5, 6.7, 9.3, 8.5, 10.1};
+        BST<string, float> balanced_bst;
+        for(int i = 0; i < 10; i++) {
+            balanced_bst.insert(to_string(vals[i]) + " data", vals[i]);
+        }
+        float max_float = balanced_bst.min_key();
+        if(max_float != 1.1) {
+            cout << "Incorrect result of min_key. Expected 1.1 but got : " << max_float << endl;
+        }
+    } catch(exception& e) {
+        cerr << "Error in determining data of min node in bst : " << e.what() << endl;
+    }
+
+    // string
+    try {
+        string vals[10] = {"f", "b", "h", "a", "c", "p", "g", "q", "l", "z"};
+        BST<string, string> balanced_bst;
+        for(int i = 0; i < 10; i++) {
+            balanced_bst.insert(vals[i] + " data", vals[i]);
+        }
+        string max_str = balanced_bst.min_key();
+        if(max_str != "a") {
+            cout << "Incorrect result of min_key. Expected a but got : " << max_str << endl;
+        }
+    } catch(exception& e) {
+        cerr << "Error in determining data of min node in bst : " << e.what() << endl;
+    }
+
+    // char
+    try {
+        char vals[10] = {'f', 'b', 'h', 'a', 'c', 'p', 'q', 'l', 'z'};
+        BST<string, char> balanced_bst;
+        for(int i = 0; i < 10; i++) {
+            balanced_bst.insert(to_string(vals[i]) + " data", vals[i]);
+        }
+        char max_str = balanced_bst.min_key();
+        if(max_str != 'a') {
+            cout << "Incorrect result of min_key. Expected \"a\" but got : " << max_str << endl;
+        }
+    } catch(exception& e) {
+        cerr << "Error in determining data of min node in bst : " << e.what() << endl;
+    }
+
+    // bool  
+    try {
+        bool vals[10] = {true, false, false, false, false, true, false, true, true, false};
+        BST<string, bool> balanced_bst;
+        for(int i = 0; i < 10; i++) {
+            balanced_bst.insert(to_string(vals[i]) + " data", vals[i]);
+        }
+        bool max_str = balanced_bst.min_key();
+        if(max_str != 0) {
+            cout << "Incorrect result of min_key. Expected \"0\" but got : " << max_str << endl;
+        }
+    } catch(exception& e) {
+        cerr << "Error in determining data of min node in bst : " << e.what() << endl;
     }
 }
 
