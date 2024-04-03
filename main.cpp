@@ -1,12 +1,11 @@
 #include <iostream>
-#include "bst.h"  
 #include "usecase.cpp"  
 
 using namespace std;
 
 int main() {
 
-    BST<string, string>* bst = create_bst<string, string>("binhex.csv");
+    BST<string, string>* bst = create_bst<string, string>("binhex.txt");
 
     cout << "Enter binary: ";
     string binary;

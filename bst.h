@@ -24,8 +24,9 @@ class BST
         };
 
         Node* root; // pointer to root of BST
-
+    
     public:
+
         BST     ( void ); // constructor
         ~BST    ( void );
 
@@ -52,7 +53,10 @@ class BST
         U getHelperSpecificNode(Node* node) const;
         Node* trimHelper(Node* node, U low, U high);
         
+
 };
+
+#include "bst.cpp"
 
 #endif
 

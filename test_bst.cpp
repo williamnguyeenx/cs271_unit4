@@ -9,7 +9,6 @@
 #include <iostream>
 #include <math.h>
 #include "usecase.cpp"
-#include "bst.cpp"
 
 using namespace std;
 
