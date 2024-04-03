@@ -14,7 +14,7 @@
 using namespace std;
 
 void test_empty() {
-    //string
+    // int
     try
     {
         BST<string, int> bst;
@@ -31,14 +31,14 @@ void test_empty() {
         cerr << "Error in determining if BST is empty : " << e.what() << endl;
     }
 
-    //int
+    // float
     try
     {
-        BST<int, int> bst;
+        BST<string, float> bst;
         if(!bst.empty()) {
             cout << "Incorrect empty result." << endl;
         }
-        bst.insert(5,1);
+        bst.insert("one",1.5);
         if(bst.empty()) {
             cout << "Incorrect empty result." << endl;
         }
@@ -48,14 +48,14 @@ void test_empty() {
         cerr << "Error in determining if BST is empty : " << e.what() << endl;
     }
 
-    //float
+    // string
     try
     {
-        BST<float, int> bst;
+        BST<string, string> bst;
         if(!bst.empty()) {
             cout << "Incorrect empty result." << endl;
         }
-        bst.insert(5.5,1);
+        bst.insert("one","two");
         if(bst.empty()) {
             cout << "Incorrect empty result." << endl;
         }
@@ -65,15 +65,31 @@ void test_empty() {
         cerr << "Error in determining if BST is empty : " << e.what() << endl;
     }
 
-    //bool
-
+    //char
     try
     {
-        BST<bool, int> bst;
+        BST<string, char> bst;
         if(!bst.empty()) {
             cout << "Incorrect empty result." << endl;
         }
-        bst.insert(true,1);
+        bst.insert("one",'a');
+        if(bst.empty()) {
+            cout << "Incorrect empty result." << endl;
+        }
+    }
+    catch(exception& e)
+    {
+        cerr << "Error in determining if BST is empty : " << e.what() << endl;
+    }
+
+    // bool
+    try
+    {
+        BST<string, bool> bst;
+        if(!bst.empty()) {
+            cout << "Incorrect empty result." << endl;
+        }
+        bst.insert("one",true);
         if(bst.empty()) {
             cout << "Incorrect empty result." << endl;
         }
@@ -85,7 +101,7 @@ void test_empty() {
 }
 
 void test_insert() {
-    // string
+    // int
     try {
         BST<string, int> bst;
         bst.insert("one", 1);
@@ -113,57 +129,50 @@ void test_insert() {
         cerr << "Error inserting into bst : " << e.what() << endl;
     }
 
-    // int
+    // float
     try {
-        BST<int, int> bst;
-        bst.insert(1, 1);
+        BST<string, float> bst;
+        bst.insert("one", 1.5);
         string bst_str = bst.to_string();
-        if(bst_str != "1") {
-            cout << "Incorrect result of inserting (\"one\", 1). Expected 1 but got : " << bst_str << endl;
+        if(bst_str != "1.5") {
+            cout << "Incorrect result of inserting (\"one\", 1.5). Expected 1.5 but got" << endl;
         }
         for(int i = 2; i <= 10; i++) {
-            bst.insert(5, i);
+            bst.insert("some data", i+0.5);
         }
         bst_str = bst.to_string();
-        if(bst_str != "1 2 3 4 5 6 7 8 9 10") {
-            cout << "Incorrect result of inserting keys 1-10 in order. Expected 1 2 3 4 5 6 7 8 9 10 but got : " << bst_str << endl;
+        if(bst_str != "1.5 2.5 3.5 4.5 5.5 6.5 7.5 8.5 9.5 10.5") {
+            cout << "Incorrect result of inserting keys 1.5-10.5 in order. Expected 1.5 2.5 3.5 4.5 5.5 6.5 7.5 8.5 9.5 10.5 but got : " << bst_str << endl;
         }
         int vals[10] = {5, 2, 7, 1, 3, 4, 6, 9, 8, 10};
-        BST<int, int> balanced_bst;
+        BST<string, float> balanced_bst;
         for(int i = 0; i < 10; i++) {
-            balanced_bst.insert(5, vals[i]);
+            balanced_bst.insert("some data", vals[i]+0.5);
         }
         bst_str = balanced_bst.to_string();
-        if(bst_str != "5 2 7 1 3 6 9 4 8 10") {
-            cout << "Incorrect result of inserting keys {5, 2, 7, 1, 3, 4, 6, 9, 8, 10}. Expected 5 2 7 1 3 6 9 4 8 10 but got : " << bst_str << endl;
+        if(bst_str != "5.5 2.5 7.5 1.5 3.5 6.5 9.5 4.5 8.5 10.5") {
+            cout << "Incorrect result of inserting keys {5.5 2.5 7.5 1.5 3.5 6.5 9.5 4.5 8.5 10.5}. Expected 5.5 2.5 7.5 1.5 3.5 6.5 9.5 4.5 8.5 10.5 but got : " << bst_str << endl;
         }
     } catch(exception& e) {
         cerr << "Error inserting into bst : " << e.what() << endl;
     }
 
-    // float
+    // string
     try {
-        BST<float, int> bst;
-        bst.insert(1.5, 1);
+        BST<string, string> bst;
+        bst.insert("one", "aa");
         string bst_str = bst.to_string();
-        if(bst_str != "1") {
-            cout << "Incorrect result of inserting (\"one\", 1). Expected 1 but got : " << bst_str << endl;
+        if(bst_str != "aa") {
+            cout << "Incorrect result of inserting (\"one\", aa). Expected aa but got : " << bst_str << endl;
         }
-        for(int i = 2; i <= 10; i++) {
-            bst.insert(5.5, i);
-        }
-        bst_str = bst.to_string();
-        if(bst_str != "1 2 3 4 5 6 7 8 9 10") {
-            cout << "Incorrect result of inserting keys 1-10 in order. Expected 1 2 3 4 5 6 7 8 9 10 but got : " << bst_str << endl;
-        }
-        int vals[10] = {5, 2, 7, 1, 3, 4, 6, 9, 8, 10};
-        BST<float, int> balanced_bst;
-        for(int i = 0; i < 10; i++) {
-            balanced_bst.insert(5.5, vals[i]);
+        string series[5] = {"five", "two", "seven" "one", "three"};
+        BST<string, string> balanced_bst;
+        for(int i = 0; i < 5; i++) {
+            balanced_bst.insert("some data", series[i]);
         }
         bst_str = balanced_bst.to_string();
-        if(bst_str != "5 2 7 1 3 6 9 4 8 10") {
-            cout << "Incorrect result of inserting keys {5, 2, 7, 1, 3, 4, 6, 9, 8, 10}. Expected 5 2 7 1 3 6 9 4 8 10 but got : " << bst_str << endl;
+        if(bst_str != "five two seven one three") {
+            cout << "Incorrect result of inserting keys {five two seven one three}. Expected five two seven one three but got : " << bst_str << endl;
         }
     } catch(exception& e) {
         cerr << "Error inserting into bst : " << e.what() << endl;
@@ -291,6 +300,7 @@ void test_remove() {
 
 
 void test_max_data() {
+    //string
     try {
         int vals[10] = {5, 2, 7, 1, 3, 4, 6, 9, 8, 10};
         BST<string, int> balanced_bst;
@@ -376,6 +386,8 @@ void test_successor() {
     } catch(exception& e) {
         cerr << "Error in determining successor in bst : " << e.what() << endl;
     }
+
+    //float
 }
 
 void test_in_order() {

@@ -49,8 +49,8 @@ class BST
         T getHelper(Node* x, const U& k) const;
         void transplant(Node* u, Node* v);
 
-        U minKeyFromNode(Node* node) const;
-        Node* trimRecursive(Node* node, U low, U high);
+        U getHelperSpecificNode(Node* node) const;
+        Node* trimHelper(Node* node, U low, U high);
         
 };
 
