@@ -41,14 +41,16 @@ class BST
 
         U       successor( const U& k ) const;
         string  in_order( void ) const;
-        void    trim( const U low, const U high ) const;
+        void    trim( const U low, const U high );
 
         string  to_string( void ) const;
         void    deleteTree( Node* x);
 
         T getHelper(Node* x, const U& k) const;
         void transplant(Node* u, Node* v);
+
         U minKeyFromNode(Node* node) const;
+        Node* trimRecursive(Node* node, U low, U high);
         
 };
 

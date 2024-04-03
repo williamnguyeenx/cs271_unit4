@@ -1,5 +1,5 @@
 #include <iostream>
-#include "BST.h"  
+#include "bst.h"  
 #include "usecase.cpp"  
 
 int main() {
@@ -12,15 +12,17 @@ int main() {
 
     string result = convert<string, string>(bst, binary);
 
-   if (result == "Error") 
-   {
+    if (result == "Error") 
+    {
         cout << "Can not convert binary to hexadecimal." << endl;
-    } else 
-
+    } else
+    {
         cout << "Hexadecimal representation: " << result << endl;
     }
 
-    delete bst;
+       delete bst;
 
-    return 0;
+    return 0;     
 }
+
+

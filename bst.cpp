@@ -417,34 +417,45 @@ string BST<T,U>::in_order( void ) const
 // 
 //=========================================================================
 template <class T, class U>
-void BST<T,U>::trim( const U low, const U high ) const
+void BST<T,U>::trim( const U low, const U high )
 // Pre condition: 
 // Post condition: 
 {
-
-    U x = min_key();
-    U y;
-
-    while (x <= low)
-    {
-        y = x;
-        x = successor(x);
-        remove(x);
-    }
-
-    while (x <= high)
-    {
-        x = successor(x);
-    }
-
-    while (successor(x) != U())
-    {
-        y = x;
-        x = successor(x);
-        remove(x);
-    }
+    root = trimRecursive(root, low, high);
     
+}
 
+template <class T, class U>
+typename BST<T,U>::Node* BST<T,U>::trimRecursive(Node* node, U low, U high) {
+    // Base case: If the current node is null, return null.
+    if (node == nullptr) {
+        return nullptr;
+    }
+
+    // Recursively trim the left and right subtrees.
+    node->left = trimRecursive(node->left, low, high);
+    node->right = trimRecursive(node->right, low, high);
+
+    // If the current node's key is less than the low end of the range,
+    // then we can discard the current node and its left subtree,
+    // returning the right subtree to be reconnected.
+    if (node->key < low) {
+        Node* rightSubtree = node->right;
+        delete node; // Remove the current node.
+        return rightSubtree;
+    }
+    // If the current node's key is greater than the high end of the range,
+    // then we can discard the current node and its right subtree,
+    // returning the left subtree to be reconnected.
+    else if (node->key > high) {
+        Node* leftSubtree = node->left;
+        delete node; // Remove the current node.
+        return leftSubtree;
+    }
+
+    // If the current node's key is within the range, no need to modify this node,
+    // just return it as is.
+    return node;
 }
 
 //=========================================================================
