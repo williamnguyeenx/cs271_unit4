@@ -482,7 +482,7 @@ string BST<T,U>::to_string( void ) const
     queue<Node*> temp;
     if (root == nullptr)
     {
-        return "";
+        return result.str();
 
     }
     temp.push(root); // EnQueue the root node
