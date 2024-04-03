@@ -2,6 +2,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <queue>
 
 //=========================================================================
 // default constructor
@@ -29,7 +30,6 @@ template <class T, class U>
 BST<T,U>::~BST( void )
 {
     deleteTree(root);
-    root = nullptr;
 }
 
 //=========================================================================
@@ -60,10 +60,11 @@ void BST<T,U>::insert( const T& d, const U& k )
 // Pre condition: 
 // Post condition: 
 {
-    Node* z = new Node(d, k); // Creat a new node
+    Node* z = new Node(d, k); // Create a new node
     if (root == nullptr) 
     {
         root = z; // the nodeNode become the root if tree is empty
+        return;
     }
 
     // create pointers x and y
@@ -415,48 +416,35 @@ string BST<T,U>::to_string( void ) const
 // Post condition: 
 {
     stringstream result;
-    BST<T,U> str1;
+    BST<T,U> temp;
     if (root == nullptr)
     {
         return "";
 
     }
+    temp.push(root); // EnQueue the root node
 
-    Node* x = root;
-    Node* y = nullptr;
-
-    if (x != nullptr)
+    while (!temp.empty())
     {
-        result << x->key;
-        y = x->left;
-        while (y != nullptr)
+        Node* x = temp.front(); // Get front node, node x is the current node
+        temp.pop(); // DeQueue the front node
+
+        if (x->left != nullptr) // EnQueue the left child
         {
-            result << y->key << " ";
+            temp.push(x->left);
         }
+        if (x->right != nullptr) // EnQueue the right child
+        {
+            temp.push(x->right);
+        }
+
+        result << x->key;
+
+        if(!temp.empty())
+        {
+            result << " ";
+        }       
     }
-//     // str1.push(root); // EnQueue the root node
-
-//     // while (!str1.empty())
-//     // {
-//     //     Node* x = str1.front(); // Get front node, node x is the current node
-//     //     str1.pop(); // DeQueue the front node
-
-//     //     if (x->left != nullptr) // EnQueue the left child
-//     //     {
-//     //         str1.push(x->left);
-//     //     }
-//     //     if (x->right != nullptr) // EnQueue the right child
-//     //     {
-//     //         str1.push(x->right);
-//     //     }
-
-//     //     result << x->key;
-
-//     //     if(!str1.empty())
-//     //     {
-//     //         result << " ";
-//     //     }       
-//     // }
 
     return result.str();
 }

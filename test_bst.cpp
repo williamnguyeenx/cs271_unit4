@@ -84,120 +84,120 @@ void test_empty() {
     }
 }
 
-// void test_insert() {
-//     // string
-//     try {
-//         BST<string, int> bst;
-//         bst.insert("one", 1);
-//         string bst_str = bst.to_string();
-//         if(bst_str != "1") {
-//             cout << "Incorrect result of inserting (\"one\", 1). Expected 1 but got : " << bst_str << endl;
-//         }
-//         for(int i = 2; i <= 10; i++) {
-//             bst.insert("some data", i);
-//         }
-//         bst_str = bst.to_string();
-//         if(bst_str != "1 2 3 4 5 6 7 8 9 10") {
-//             cout << "Incorrect result of inserting keys 1-10 in order. Expected 1 2 3 4 5 6 7 8 9 10 but got : " << bst_str << endl;
-//         }
-//         int vals[10] = {5, 2, 7, 1, 3, 4, 6, 9, 8, 10};
-//         BST<string, int> balanced_bst;
-//         for(int i = 0; i < 10; i++) {
-//             balanced_bst.insert("some data", vals[i]);
-//         }
-//         bst_str = balanced_bst.to_string();
-//         if(bst_str != "5 2 7 1 3 6 9 4 8 10") {
-//             cout << "Incorrect result of inserting keys {5, 2, 7, 1, 3, 4, 6, 9, 8, 10}. Expected 5 2 7 1 3 6 9 4 8 10 but got : " << bst_str << endl;
-//         }
-//     } catch(exception& e) {
-//         cerr << "Error inserting into bst : " << e.what() << endl;
-//     }
+void test_insert() {
+    // string
+    try {
+        BST<string, int> bst;
+        bst.insert("one", 1);
+        string bst_str = bst.to_string();
+        if(bst_str != "1") {
+            cout << "Incorrect result of inserting (\"one\", 1). Expected 1 but got : " << bst_str << endl;
+        }
+        for(int i = 2; i <= 10; i++) {
+            bst.insert("some data", i);
+        }
+        bst_str = bst.to_string();
+        if(bst_str != "1 2 3 4 5 6 7 8 9 10") {
+            cout << "Incorrect result of inserting keys 1-10 in order. Expected 1 2 3 4 5 6 7 8 9 10 but got : " << bst_str << endl;
+        }
+        int vals[10] = {5, 2, 7, 1, 3, 4, 6, 9, 8, 10};
+        BST<string, int> balanced_bst;
+        for(int i = 0; i < 10; i++) {
+            balanced_bst.insert("some data", vals[i]);
+        }
+        bst_str = balanced_bst.to_string();
+        if(bst_str != "5 2 7 1 3 6 9 4 8 10") {
+            cout << "Incorrect result of inserting keys {5, 2, 7, 1, 3, 4, 6, 9, 8, 10}. Expected 5 2 7 1 3 6 9 4 8 10 but got : " << bst_str << endl;
+        }
+    } catch(exception& e) {
+        cerr << "Error inserting into bst : " << e.what() << endl;
+    }
 
-//     // int
-//     try {
-//         BST<int, int> bst;
-//         bst.insert(1, 1);
-//         string bst_str = bst.to_string();
-//         if(bst_str != "1") {
-//             cout << "Incorrect result of inserting (\"one\", 1). Expected 1 but got : " << bst_str << endl;
-//         }
-//         for(int i = 2; i <= 10; i++) {
-//             bst.insert(5, i);
-//         }
-//         bst_str = bst.to_string();
-//         if(bst_str != "1 2 3 4 5 6 7 8 9 10") {
-//             cout << "Incorrect result of inserting keys 1-10 in order. Expected 1 2 3 4 5 6 7 8 9 10 but got : " << bst_str << endl;
-//         }
-//         int vals[10] = {5, 2, 7, 1, 3, 4, 6, 9, 8, 10};
-//         BST<int, int> balanced_bst;
-//         for(int i = 0; i < 10; i++) {
-//             balanced_bst.insert(5, vals[i]);
-//         }
-//         bst_str = balanced_bst.to_string();
-//         if(bst_str != "5 2 7 1 3 6 9 4 8 10") {
-//             cout << "Incorrect result of inserting keys {5, 2, 7, 1, 3, 4, 6, 9, 8, 10}. Expected 5 2 7 1 3 6 9 4 8 10 but got : " << bst_str << endl;
-//         }
-//     } catch(exception& e) {
-//         cerr << "Error inserting into bst : " << e.what() << endl;
-//     }
+    // int
+    try {
+        BST<int, int> bst;
+        bst.insert(1, 1);
+        string bst_str = bst.to_string();
+        if(bst_str != "1") {
+            cout << "Incorrect result of inserting (\"one\", 1). Expected 1 but got : " << bst_str << endl;
+        }
+        for(int i = 2; i <= 10; i++) {
+            bst.insert(5, i);
+        }
+        bst_str = bst.to_string();
+        if(bst_str != "1 2 3 4 5 6 7 8 9 10") {
+            cout << "Incorrect result of inserting keys 1-10 in order. Expected 1 2 3 4 5 6 7 8 9 10 but got : " << bst_str << endl;
+        }
+        int vals[10] = {5, 2, 7, 1, 3, 4, 6, 9, 8, 10};
+        BST<int, int> balanced_bst;
+        for(int i = 0; i < 10; i++) {
+            balanced_bst.insert(5, vals[i]);
+        }
+        bst_str = balanced_bst.to_string();
+        if(bst_str != "5 2 7 1 3 6 9 4 8 10") {
+            cout << "Incorrect result of inserting keys {5, 2, 7, 1, 3, 4, 6, 9, 8, 10}. Expected 5 2 7 1 3 6 9 4 8 10 but got : " << bst_str << endl;
+        }
+    } catch(exception& e) {
+        cerr << "Error inserting into bst : " << e.what() << endl;
+    }
 
-//     // float
-//     try {
-//         BST<float, int> bst;
-//         bst.insert(1.5, 1);
-//         string bst_str = bst.to_string();
-//         if(bst_str != "1") {
-//             cout << "Incorrect result of inserting (\"one\", 1). Expected 1 but got : " << bst_str << endl;
-//         }
-//         for(int i = 2; i <= 10; i++) {
-//             bst.insert(5.5, i);
-//         }
-//         bst_str = bst.to_string();
-//         if(bst_str != "1 2 3 4 5 6 7 8 9 10") {
-//             cout << "Incorrect result of inserting keys 1-10 in order. Expected 1 2 3 4 5 6 7 8 9 10 but got : " << bst_str << endl;
-//         }
-//         int vals[10] = {5, 2, 7, 1, 3, 4, 6, 9, 8, 10};
-//         BST<float, int> balanced_bst;
-//         for(int i = 0; i < 10; i++) {
-//             balanced_bst.insert(5.5, vals[i]);
-//         }
-//         bst_str = balanced_bst.to_string();
-//         if(bst_str != "5 2 7 1 3 6 9 4 8 10") {
-//             cout << "Incorrect result of inserting keys {5, 2, 7, 1, 3, 4, 6, 9, 8, 10}. Expected 5 2 7 1 3 6 9 4 8 10 but got : " << bst_str << endl;
-//         }
-//     } catch(exception& e) {
-//         cerr << "Error inserting into bst : " << e.what() << endl;
-//     }
+    // float
+    try {
+        BST<float, int> bst;
+        bst.insert(1.5, 1);
+        string bst_str = bst.to_string();
+        if(bst_str != "1") {
+            cout << "Incorrect result of inserting (\"one\", 1). Expected 1 but got : " << bst_str << endl;
+        }
+        for(int i = 2; i <= 10; i++) {
+            bst.insert(5.5, i);
+        }
+        bst_str = bst.to_string();
+        if(bst_str != "1 2 3 4 5 6 7 8 9 10") {
+            cout << "Incorrect result of inserting keys 1-10 in order. Expected 1 2 3 4 5 6 7 8 9 10 but got : " << bst_str << endl;
+        }
+        int vals[10] = {5, 2, 7, 1, 3, 4, 6, 9, 8, 10};
+        BST<float, int> balanced_bst;
+        for(int i = 0; i < 10; i++) {
+            balanced_bst.insert(5.5, vals[i]);
+        }
+        bst_str = balanced_bst.to_string();
+        if(bst_str != "5 2 7 1 3 6 9 4 8 10") {
+            cout << "Incorrect result of inserting keys {5, 2, 7, 1, 3, 4, 6, 9, 8, 10}. Expected 5 2 7 1 3 6 9 4 8 10 but got : " << bst_str << endl;
+        }
+    } catch(exception& e) {
+        cerr << "Error inserting into bst : " << e.what() << endl;
+    }
 
-//     // bool
-//     try {
-//         BST<bool, int> bst;
-//         bst.insert(true, 1);
-//         string bst_str = bst.to_string();
-//         if(bst_str != "1") {
-//             cout << "Incorrect result of inserting (\"one\", 1). Expected 1 but got : " << bst_str << endl;
-//         }
-//         for(int i = 2; i <= 10; i++) {
-//             bst.insert(false, i);
-//         }
-//         bst_str = bst.to_string();
-//         if(bst_str != "1 2 3 4 5 6 7 8 9 10") {
-//             cout << "Incorrect result of inserting keys 1-10 in order. Expected 1 2 3 4 5 6 7 8 9 10 but got : " << bst_str << endl;
-//         }
-//         int vals[10] = {5, 2, 7, 1, 3, 4, 6, 9, 8, 10};
-//         BST<bool, int> balanced_bst;
-//         for(int i = 0; i < 10; i++) {
-//             balanced_bst.insert(false, vals[i]);
-//         }
-//         bst_str = balanced_bst.to_string();
-//         if(bst_str != "5 2 7 1 3 6 9 4 8 10") {
-//             cout << "Incorrect result of inserting keys {5, 2, 7, 1, 3, 4, 6, 9, 8, 10}. Expected 5 2 7 1 3 6 9 4 8 10 but got : " << bst_str << endl;
-//         }
-//     } catch(exception& e) {
-//         cerr << "Error inserting into bst : " << e.what() << endl;
-//     }
+    // bool
+    try {
+        BST<bool, int> bst;
+        bst.insert(true, 1);
+        string bst_str = bst.to_string();
+        if(bst_str != "1") {
+            cout << "Incorrect result of inserting (\"one\", 1). Expected 1 but got : " << bst_str << endl;
+        }
+        for(int i = 2; i <= 10; i++) {
+            bst.insert(false, i);
+        }
+        bst_str = bst.to_string();
+        if(bst_str != "1 2 3 4 5 6 7 8 9 10") {
+            cout << "Incorrect result of inserting keys 1-10 in order. Expected 1 2 3 4 5 6 7 8 9 10 but got : " << bst_str << endl;
+        }
+        int vals[10] = {5, 2, 7, 1, 3, 4, 6, 9, 8, 10};
+        BST<bool, int> balanced_bst;
+        for(int i = 0; i < 10; i++) {
+            balanced_bst.insert(false, vals[i]);
+        }
+        bst_str = balanced_bst.to_string();
+        if(bst_str != "5 2 7 1 3 6 9 4 8 10") {
+            cout << "Incorrect result of inserting keys {5, 2, 7, 1, 3, 4, 6, 9, 8, 10}. Expected 5 2 7 1 3 6 9 4 8 10 but got : " << bst_str << endl;
+        }
+    } catch(exception& e) {
+        cerr << "Error inserting into bst : " << e.what() << endl;
+    }
 
-// }
+}
 
 // void test_get() {
 //     //string
@@ -466,7 +466,7 @@ void test_empty() {
 int main() {
     
     test_empty();
-    // test_insert();
+    test_insert();
     // test_get();
     // test_remove();
     // test_max_data();
