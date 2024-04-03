@@ -2,6 +2,8 @@
 #include "bst.h"  
 #include "usecase.cpp"  
 
+using namespace std;
+
 int main() {
 
     BST<string, string>* bst = create_bst<string, string>("binhex.csv");

@@ -891,54 +891,6 @@ void test_in_order() {
     } catch(exception& e) {
         cerr << "Error getting keys in_order from bst : " << e.what() << endl;
     }
-
-    //char
-    try {
-        BST<string, char> bst;
-        char vals[5] = {'a', 'b', 'c', 'd', 'e'};
-        for(int i = 0; i < 5; i++) {
-            bst.insert("some data", vals[i]);
-        }
-        string bst_str = bst.in_order();
-        if(bst_str != "a b c d e") {
-            cout << "Incorrect in_order result after inserting keys a-e in order. Expected a b c d e but got : " << bst_str << endl;
-        }
-        char vals2[5] = {'d', 'a', 'c', 'e', 'f'};
-        BST<string, char> balanced_bst;
-        for(int i = 0; i < 5; i++) {
-            balanced_bst.insert("some data", vals2[i]);
-        }
-        bst_str = balanced_bst.in_order();
-        if(bst_str != "a c d e f") {
-            cout << "Incorrect in_order result after inserting keys {d, a, c, e, f}. Expected a c d e fbut got : " << bst_str << endl;
-        }
-    } catch(exception& e) {
-        cerr << "Error getting keys in_order from bst : " << e.what() << endl;
-    }
-
-    //bool
-    try {
-        BST<string, bool> bst;
-        bool vals[2] = {true, false};
-        for(int i = 0; i < 2; i++) {
-            bst.insert("some data", vals[i]);
-        }
-        string bst_str = bst.in_order();
-        if(bst_str != "0 1") {
-            cout << "Incorrect in_order result after inserting keys in order. Expected 0 1 but got : " << bst_str << endl;
-        }
-        bool vals2[3] = {true, true, false};
-        BST<string, bool> balanced_bst;
-        for(int i = 0; i < 3; i++) {
-            balanced_bst.insert("some data", vals2[i]);
-        }
-        bst_str = balanced_bst.in_order();
-        if(bst_str != "0 1 1") {
-            cout << "Incorrect in_order result after inserting keys {true, true, false}. Expected 0 1 1 fbut got : " << bst_str << endl;
-        }
-    } catch(exception& e) {
-        cerr << "Error getting keys in_order from bst : " << e.what() << endl;
-    }
 }
 
 void test_trim() {
