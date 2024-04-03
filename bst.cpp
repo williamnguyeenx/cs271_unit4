@@ -62,7 +62,36 @@ string BST<T,U>::to_string( void ) const
 // Pre condition: 
 // Post condition: 
 {
-    
+    stringstream result;
+    queue<Node*> nodeQueue;
+    if (root == nullptr)
+    {
+        return "";
+    }
+    nodeQueue.push(root); // EnQueue the root node
+
+    while (!nodeQueue.empty())
+    {
+        Node* x = nodeQueue.front(); // Get front node, node x is the current node
+        nodeQueue.pop(); // DeQueue the front node
+
+        if (x->left != nullptr) // EnQueue the left child
+        {
+            nodeQueue.push(x->left);
+        }
+        if (x->right != nullptr) // EnQueue the right child
+        {
+            nodeQueue.push(x->right);
+        }
+
+        result << x->key;
+
+        if(!nodeQueue.empty())
+        {
+            result << " ";
+        }       
+    }
+    return result.str();
 }
 
 
