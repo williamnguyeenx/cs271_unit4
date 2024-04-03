@@ -4,6 +4,8 @@
 #include <string>
 #include <queue>
 
+using namespace std;
+
 //=========================================================================
 // default constructor
 // Parameters: None
@@ -107,7 +109,7 @@ template <class T, class U>
 T BST<T,U>::get( const U& k ) const
 // Pre condition: 
 // Post condition: 
-{
+{   
     return getHelper(root, k);
 }
 
@@ -443,7 +445,7 @@ string BST<T,U>::to_string( void ) const
 // Post condition: 
 {
     stringstream result;
-    BST<T,U> temp;
+    queue<Node*> temp;
     if (root == nullptr)
     {
         return "";
