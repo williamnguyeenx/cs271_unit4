@@ -1,7 +1,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-#include "BST.h" // Include your BST class header file here
+#include "BST.h" 
 
 using namespace std;
 
@@ -35,15 +35,36 @@ BST<D, K>* create_bst(const string& fname)
 template <class D, class K>
 string convert(BST<D, K>* bst, const string& bin) 
 {
-    // Pad the binary string if its length is not a multiple of 4
-    int padding = bin.length() % 4;
-    string padded_bin = string(4 - padding, '0') + bin;
+    // Make bin length is a multiple of 4 by adding 0 if it is not a multiple of 4
+    string newBin = bin;
+    while (newBin.length() % 4 != 0) {
+        newBin = "0" + newBin;
+    }
+    // Initialize an empty string for storing
+    string hex = "";
 
-    // Search for the binary string in the BST
-    string hex = bst->get(padded_bin);
+    // Iterate over the newbin string in every 4 bits
+    for (int i = 0; i < newBin.size(); i += 4) 
+    {
+        // Extract the current 4-bit binary chunk
+        string binary = newBin.substr(i, 4);
+        string hexNum = "";
+
+        // Look up the hexNum that match the binary chunk in BST
+        hexNum = bst->get(binary);
+
+        // If the hexNnum is not found in the BST, set hex to "Error" and break
+        if (hexNum.empty()) 
+        {
+            hex = "Error";
+            break;
+        }
+
+        // Append the hexNum to the hex string
+        hex += hexNum;
+    }
+
+    // Return the hexadecimal representation
     return hex;
 }
 
-{
-    while (bin.length() % 4 != 0)
-}
