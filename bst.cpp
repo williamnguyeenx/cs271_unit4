@@ -328,7 +328,22 @@ U BST<T,U>::successor( const U& k ) const
 // Pre condition: 
 // Post condition: 
 {
-    Node x = getHelper(root, k);
+    Node* x = root;
+    Node* parent = nullptr;
+
+    // Search for the node with key k
+    while (x != nullptr && x->key != k)
+    {
+        parent = x;
+        if (k < x->key)
+        {
+            x = x->left;
+        }
+        else
+        {
+            x = x->right;
+        }
+    }
 
     if (x == nullptr) 
     {
@@ -337,10 +352,10 @@ U BST<T,U>::successor( const U& k ) const
 
     if (x->right != nullptr) 
     {
-        return min_key(x->right);
+        return minKeyFromNode(x->right);
     }
 
-    Node* y = x->p;
+    Node* y = parent;
     while (y != nullptr && x == y->right) 
     {
         x = y;
@@ -355,6 +370,19 @@ U BST<T,U>::successor( const U& k ) const
     return y->key;
 }
 
+template <class T, class U>
+U BST<T,U>::minKeyFromNode(Node* node) const {
+    if (node == nullptr) {
+        return U(); // Or throw an exception if that makes more sense for your application
+    }
+
+    while (node->left != nullptr) {
+        node = node->left;
+    }
+
+    return node->key;
+}
+
 
 //=========================================================================
 // in_order
@@ -367,20 +395,17 @@ string BST<T,U>::in_order( void ) const
 // Pre condition: 
 // Post condition: 
 {
-    string order;
-    T x = min_key();
+    stringstream order;
+    U x = minKeyFromNode(root);
 
-    while (successor(x) != NULL)
+    while (successor(x) != U())
     {
-        if (successor(x) == NULL)
-        {
-            order = order + x;
-        }
-        order = order + x + " ";
+        order << x << " ";
         x = successor(x);
     }
+    order << x;
 
-    return order;
+    return order.str();
         
 }
 
@@ -397,20 +422,28 @@ void BST<T,U>::trim( const U low, const U high ) const
 // Post condition: 
 {
 
-    BST<T,U> trimmed; 
+    U x = min_key();
+    U y;
 
-    T x = min_key();
+    while (x <= low)
+    {
+        y = x;
+        x = successor(x);
+        remove(x);
+    }
 
-    while (x < low)
+    while (x <= high)
     {
         x = successor(x);
     }
 
-    while (successor(x) != NULL && x >= low && x <= high)
+    while (successor(x) != U())
     {
-        trimmed.insert(x);
+        y = x;
         x = successor(x);
+        remove(x);
     }
+    
 
 }
 

@@ -48,6 +48,7 @@ class BST
 
         T getHelper(Node* x, const U& k) const;
         void transplant(Node* u, Node* v);
+        U minKeyFromNode(Node* node) const;
         
 };
 
