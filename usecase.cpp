@@ -1,7 +1,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-#include "BST.h" 
+#include "bst.h" 
 
 using namespace std;
 
