@@ -4,6 +4,8 @@
 #include <string>
 #include <queue>
 
+using namespace std;
+
 //=========================================================================
 // default constructor
 // Parameters: None
@@ -107,7 +109,7 @@ template <class T, class U>
 T BST<T,U>::get( const U& k ) const
 // Pre condition: 
 // Post condition: 
-{
+{   
     return getHelper(root, k);
 }
 
@@ -120,7 +122,11 @@ T BST<T,U>::get( const U& k ) const
 template <class T, class U>
 T BST<T,U>::getHelper(Node* x, const U& k) const 
 {
-    if (x == nullptr || x->key == k) 
+    if (x == nullptr) 
+    {
+        return T();
+    }
+    if (x->key == k)
     {
         return x->data;
     }
@@ -161,7 +167,7 @@ void BST<T,U>::remove( const U& k )
 // Pre condition: 
 // Post condition: 
 {
-    Node z = getHelper(root, k);
+    Node* z = getHelper(root, k);
 
     if (z == nullptr) return;
     if (z->left == nullptr) 
@@ -174,7 +180,7 @@ void BST<T,U>::remove( const U& k )
     } 
     else 
     {
-        Node y = getHelper(z->right, min_key());
+        Node* y = getHelper(z->right, min_key());
         if (y->p != z) 
         {
             transplant(y, y->right);
@@ -416,7 +422,7 @@ string BST<T,U>::to_string( void ) const
 // Post condition: 
 {
     stringstream result;
-    BST<T,U> temp;
+    queue<Node*> temp;
     if (root == nullptr)
     {
         return "";
